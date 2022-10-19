@@ -1,27 +1,31 @@
 import 'package:flutter/material.dart';
 
-class MyAppBar extends StatelessWidget implements PreferredSizeWidget{
+class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
-  const MyAppBar({
-        required this.title,
-        super.key});
+  final bool isHomePage;
 
+  const MyAppBar({required this.title, required this.isHomePage, super.key});
 
   @override
   Size get preferredSize => const Size.fromHeight(60);
 
+  static const sizeFromHeight = Size.fromHeight(60);
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text(title),
-      elevation: 5,
-      actions: [
-        IconButton(
-          onPressed: (){},
-          icon: const Icon(Icons.sunny),
-        ),
-      ],
+      title: Text(
+        title,
+      ),
+      elevation: 0.0,
+      actions: isHomePage
+          ? [
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.sunny),
+              ),
+            ]
+          : null,
     );
   }
-
 }
