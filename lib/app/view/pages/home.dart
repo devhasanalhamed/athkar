@@ -1,7 +1,9 @@
 import 'package:athkar/app/view/widgets/appbar.dart';
-import 'package:athkar/app/view/widgets/container.dart';
+import 'package:athkar/app/view/widgets/counter.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../widgets/athkar.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -11,63 +13,51 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  static const myAppBar = MyAppBar(title: 'أذكار اليوم والليلة',isHomePage: true,);
+
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height -
+        myAppBar.preferredSize.height -
+        MediaQuery.of(context).padding.top;
     return Scaffold(
-      appBar: const MyAppBar(title: 'أذكار اليوم والليلة'),
+      appBar: myAppBar,
       body: Padding(
-        padding: const EdgeInsets.all(14),
+        padding: EdgeInsets.all(screenHeight * 0.02),
         child: ListView(
           children: [
-            const MyContainer(
-              title: 'عداد الذكر',
-              icon: FontAwesomeIcons.kaaba,
+            MyCounter(
+              title: 'معلومات',
+              icon: FontAwesomeIcons.info,
               width: double.infinity,
-              height: 200,
+              height: screenHeight * 0.30,
             ),
-            const SizedBox(
-              height: 20,
+            SizedBox(
+              height: screenHeight * 0.02,
+            ),
+            MyCounter(
+              title: 'السبحة الإلكترونية',
+              icon: Icons.calculate,
+              width: double.infinity,
+              height: screenHeight * 0.30,
+            ),
+            SizedBox(
+              height: screenHeight * 0.02,
             ),
             Row(
               children: [
-                Container(
-                  padding: const EdgeInsets.all(25),
-                  width: 175,
-                  height: 220,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(20),
-                    ),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: const [
-                      FaIcon(FontAwesomeIcons.sun),
-                      Text('أذكار الصباح'),
-                    ],
-                  ),
+                MyAthkar(
+                  title: 'أذكار الصباح',
+                  icon: Icons.sunny,
+                  height: screenHeight * 0.30,
                 ),
                 const SizedBox(
                   width: 10,
                 ),
-                Container(
-                  padding: const EdgeInsets.all(25),
-                  width: 175,
-                  height: 220,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(20),
-                    ),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: const [
-                      FaIcon(FontAwesomeIcons.moon),
-                      Text('أذكار المساء'),
-                    ],
-                  ),
+                MyAthkar(
+                  title: 'أذكار المساء',
+                  icon: Icons.nightlight_round,
+                  height: screenHeight * 0.30,
                 ),
               ],
             ),

@@ -11,7 +11,11 @@ ThemeData getLightThemeData() => ThemeData(
     color: ColorsLight.primaryColor,
     foregroundColor: ColorsLight.backgroundColor,
     elevation: 0.0,
+    iconTheme: IconThemeData(
+      size: 25
+    ),
   ),
+
   floatingActionButtonTheme: const FloatingActionButtonThemeData(
     foregroundColor: ColorsLight.backgroundColor,
     backgroundColor: ColorsLight.primaryColor,
@@ -21,8 +25,14 @@ ThemeData getLightThemeData() => ThemeData(
 
     ),
   ),
-  splashColor: Colors.red,
+  splashColor: ColorsLight.splashColor,
 
+  iconTheme: const IconThemeData(
+    color: ColorsLight.iconColor,
+    size: 45,
+  ),
+  chipTheme: const ChipThemeData(
+  ),
 );
 
 
@@ -33,6 +43,7 @@ TextTheme appTextTheme = const TextTheme(
     fontSize: 18,
     color: ColorsLight.textColorBody,
     overflow: TextOverflow.fade,
+    fontWeight: FontWeight.bold,
   ),
   bodyLarge: TextStyle(
     fontSize: 24,

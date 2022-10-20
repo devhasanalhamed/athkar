@@ -16,7 +16,55 @@ class _MyCounterPageState extends State<MyCounterPage> {
       appBar: const MyAppBar(title: 'السبحة الإلكترونية',isHomePage: false),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('سبحان الله'),
+                  Container(
+                    height: 250,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Theme.of(context).primaryColor.withOpacity(0.8)
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          '50',
+                        ),
+                        Text(
+                          '/150',
+                        ),
+                      ],
+                    ),
+                  ),
+                  ElevatedButton(
+                    child: Text('مسح'),
+                    onPressed: (){},
+                  ),
+                ],
+              ),
+            ),
+            Row(
+              children: [
+                Wrap(
+                  children: [
+                    ChoiceChip(label: Text('te'), selected: false),
+                    ChoiceChip(label: Text('te'), selected: false),
+                    ChoiceChip(label: Text('te'), selected: false),
+                    ChoiceChip(label: Text('te'), selected: false),
+                    ChoiceChip(label: Text('te'), selected: false),
+                    ChoiceChip(label: Text('te'), selected: false),
+                    ChoiceChip(label: Text('te'), selected: false),
+                  ],
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

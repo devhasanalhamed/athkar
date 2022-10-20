@@ -2,6 +2,8 @@ import 'package:athkar/core/theme/data/dark_theme_data.dart';
 import 'package:athkar/core/theme/data/light_theme_data.dart';
 import 'package:flutter/material.dart';
 
+import 'app/view/pages/counter.dart';
+
 import 'app/view/pages/home.dart';
 
 
@@ -24,6 +26,9 @@ class MyApp extends StatelessWidget {
         textDirection: TextDirection.rtl,
         child: MyHomePage(),
       ),
+      routes: {
+        MyCounterPage.routeName : (context) => const MyCounterPage()
+      },
     );
   }
 }
