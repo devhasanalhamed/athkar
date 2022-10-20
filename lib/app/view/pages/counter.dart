@@ -23,7 +23,10 @@ class _MyCounterPageState extends State<MyCounterPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('سبحان الله'),
+                  Text(
+                    'سبحان الله',
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
                   Container(
                     height: 250,
                     decoration: BoxDecoration(
@@ -35,9 +38,17 @@ class _MyCounterPageState extends State<MyCounterPage> {
                       children: [
                         Text(
                           '50',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 38,
+                          ),
                         ),
                         Text(
                           '/150',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                          ),
                         ),
                       ],
                     ),
@@ -51,17 +62,23 @@ class _MyCounterPageState extends State<MyCounterPage> {
             ),
             Row(
               children: [
-                Wrap(
-                  children: [
-                    ChoiceChip(label: Text('te'), selected: false),
-                    ChoiceChip(label: Text('te'), selected: false),
-                    ChoiceChip(label: Text('te'), selected: false),
-                    ChoiceChip(label: Text('te'), selected: false),
-                    ChoiceChip(label: Text('te'), selected: false),
-                    ChoiceChip(label: Text('te'), selected: false),
-                    ChoiceChip(label: Text('te'), selected: false),
-                  ],
+                Icon(
+                  Icons.edit,
+                  size: 30,
+                  color: Theme.of(context).primaryColor,
                 ),
+              ],
+            ),
+            Wrap(
+              alignment: WrapAlignment.end,
+              children: [
+                ChoiceChip(label: Text('te'), selected: false),
+                ChoiceChip(label: Text('te'), selected: false),
+                ChoiceChip(label: Text('te'), selected: false),
+                ChoiceChip(label: Text('te'), selected: false),
+                ChoiceChip(label: Text('te'), selected: false),
+                ChoiceChip(label: Text('te'), selected: false),
+                ChoiceChip(label: Text('te'), selected: false),
               ],
             ),
           ],

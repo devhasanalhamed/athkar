@@ -40,7 +40,10 @@ class MyCounter extends StatelessWidget {
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Text(title),
+                Text(
+                  title,
+                  style: Theme.of(context).textTheme.titleSmall,
+                ),
               ],
             ),
             Icon(

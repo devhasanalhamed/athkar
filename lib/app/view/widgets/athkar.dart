@@ -29,7 +29,10 @@ class MyAthkar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Icon(icon),
-          Text(title),
+          Text(
+            title,
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
         ],
       ),
     );
