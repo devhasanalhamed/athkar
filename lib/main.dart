@@ -1,4 +1,5 @@
 import 'package:athkar/app/data/database/tasbih_database.dart';
+import 'package:athkar/app/view/pages/athkar_page.dart';
 import 'package:athkar/core/theme/data/dark_theme_data.dart';
 import 'package:athkar/core/theme/data/light_theme_data.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +36,8 @@ class MyApp extends StatelessWidget {
           child: MyHomePage(),
         ),
         routes: {
-          MyCounterPage.routeName : (context) => const MyCounterPage()
+          MyCounterPage.routeName : (context) => const MyCounterPage(),
+          AthkarPage.routeName: (context) => const AthkarPage(),
         },
       ),
     );

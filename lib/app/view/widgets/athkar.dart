@@ -1,3 +1,4 @@
+import 'package:athkar/app/view/pages/athkar_page.dart';
 import 'package:flutter/material.dart';
 
 class MyAthkar extends StatelessWidget {
@@ -14,25 +15,30 @@ class MyAthkar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(25),
-      width: 175,
-      height: height,
-      decoration: BoxDecoration(
-        color: Theme.of(context).primaryColor,
-        borderRadius: const BorderRadius.all(
-          Radius.circular(20),
-        ),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Icon(icon),
-          Text(
-            title,
-            style: Theme.of(context).textTheme.titleSmall,
+    return InkWell(
+      onTap: (){
+        Navigator.pushNamed(context, AthkarPage.routeName);
+      },
+      child: Container(
+        padding: const EdgeInsets.all(25),
+        width: 175,
+        height: height,
+        decoration: BoxDecoration(
+          color: Theme.of(context).primaryColor,
+          borderRadius: const BorderRadius.all(
+            Radius.circular(20),
           ),
-        ],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Icon(icon),
+            Text(
+              title,
+              style: Theme.of(context).textTheme.titleSmall,
+            ),
+          ],
+        ),
       ),
     );
   }
