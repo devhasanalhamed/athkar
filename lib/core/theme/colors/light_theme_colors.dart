@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 
 class ColorsLight {
-  static const myPrimaryColor = Color.fromARGB(255, 116, 172, 125);
-  static const mySecondColor = Color.fromARGB(255, 255, 255, 255);
 
+  static const primaryColor = Color.fromARGB(255, 116, 172, 125);
+  static const backgroundColor = Color.fromARGB(255, 255, 255, 255);
 
-  static const primaryColor = myPrimaryColor;
-  static const backgroundColor = mySecondColor;
+  static const textColorBodyMedium = primaryColor;
+  static const textColorTitleSmall = backgroundColor;
+  static const textColorHeadlineMedium = primaryColor;
+  static const textColorBodySmall = backgroundColor;
 
-  static const textColorBodyMedium = myPrimaryColor;
-  static const textColorTitleSmall = mySecondColor;
-  static const textColorHeadlineMedium = myPrimaryColor;
-
-  static const iconColor = mySecondColor;
-  static const splashColor = mySecondColor;
+  static const iconColor = backgroundColor;
+  static const splashColor = backgroundColor;
 }

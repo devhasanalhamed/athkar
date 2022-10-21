@@ -23,7 +23,7 @@ ThemeData getLightThemeData() => ThemeData(
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
       backgroundColor: MaterialStateProperty.all(ColorsLight.primaryColor),
-      foregroundColor: MaterialStateProperty.all(ColorsLight.mySecondColor),
+      foregroundColor: MaterialStateProperty.all(ColorsLight.backgroundColor),
     ),
   ),
   splashColor: ColorsLight.splashColor,
@@ -33,6 +33,7 @@ ThemeData getLightThemeData() => ThemeData(
     size: 45,
   ),
   chipTheme: const ChipThemeData(
+    backgroundColor: ColorsLight.primaryColor,
   ),
   buttonTheme: const ButtonThemeData(
     buttonColor: ColorsLight.primaryColor,
@@ -49,22 +50,13 @@ TextTheme appTextTheme = const TextTheme(
     overflow: TextOverflow.fade,
     fontWeight: FontWeight.bold,
   ),
+
+
   titleSmall: TextStyle(
     fontSize: 18,
     color: ColorsLight.textColorTitleSmall,
     overflow: TextOverflow.fade,
     fontWeight: FontWeight.bold,
-  ),
-  bodyMedium: TextStyle(
-    fontSize: 18,
-    color: ColorsLight.textColorBodyMedium,
-    overflow: TextOverflow.fade,
-    fontWeight: FontWeight.bold,
-  ),
-  bodyLarge: TextStyle(
-    fontSize: 24,
-    color: ColorsLight.textColorBodyMedium,
-    overflow: TextOverflow.fade,
   ),
   titleMedium: TextStyle(
     fontSize: 18,
@@ -72,4 +64,24 @@ TextTheme appTextTheme = const TextTheme(
     color: ColorsLight.textColorBodyMedium,
     overflow: TextOverflow.fade,
   ),
+
+
+  bodyLarge: TextStyle(
+    fontSize: 24,
+    color: ColorsLight.textColorBodyMedium,
+    overflow: TextOverflow.fade,
+  ),
+  bodyMedium: TextStyle(
+    fontSize: 18,
+    color: ColorsLight.textColorBodyMedium,
+    overflow: TextOverflow.fade,
+    fontWeight: FontWeight.bold,
+  ),
+  bodySmall: TextStyle(
+    fontSize: 14,
+    color: ColorsLight.textColorBodySmall,
+    overflow: TextOverflow.fade,
+    fontWeight: FontWeight.normal,
+  ),
+
 );

@@ -1,6 +1,8 @@
+import 'package:athkar/app/data/database/tasbih_database.dart';
 import 'package:athkar/core/theme/data/dark_theme_data.dart';
 import 'package:athkar/core/theme/data/light_theme_data.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'app/view/pages/counter.dart';
 
@@ -17,18 +19,25 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'أذكار اليوم والليلة',
-      theme: getLightThemeData(),
-      darkTheme: getDarkThemeData(),
-      themeMode: ThemeMode.system,
-      home: const Directionality(
-        textDirection: TextDirection.rtl,
-        child: MyHomePage(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (ctx) => TasbihDatabase(),
+        ),
+      ],
+      child: MaterialApp(
+        title: 'أذكار اليوم والليلة',
+        theme: getLightThemeData(),
+        darkTheme: getDarkThemeData(),
+        themeMode: ThemeMode.system,
+        home: const Directionality(
+          textDirection: TextDirection.rtl,
+          child: MyHomePage(),
+        ),
+        routes: {
+          MyCounterPage.routeName : (context) => const MyCounterPage()
+        },
       ),
-      routes: {
-        MyCounterPage.routeName : (context) => const MyCounterPage()
-      },
     );
   }
 }
