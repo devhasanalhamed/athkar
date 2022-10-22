@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../models/tasbih.dart';
+import '../models/tasbih_model.dart';
 
 
 class TasbihDatabase with ChangeNotifier {
