@@ -14,14 +14,9 @@ class AthkarPage extends StatefulWidget {
 class _AthkarPageState extends State<AthkarPage> {
   List<Athkar> athkarList = [
     Athkar(
+      title: 'أَعُوذُ بِاللَّهِ مِنَ الشَّيطَانِ الرَّجِيمِ',
       name:
-          'أَعُوذُ بِاللَّهِ مِنَ الشَّيطَانِ الرَّجِيمِ ﴿اللَّهُ لاَ إِلَهَ إِلاَّ هُوَ الْحَيُّ الْقَيُّومُ لاَ تَأْخُذُهُ سِنَةٌ وَلاَ نَوْمٌ لَّهُ مَا فِي السَّمَوَاتِ وَمَا فِي الأَرْضِ مَن ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلاَّ بِإِذْنِهِ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلاَ يُحِيطُونَ بِشَيْءٍ مِّنْ عِلْمِهِ إِلاَّ بِمَا شَاء وَسِعَ كُرْسِيُّهُ السَّمَوَاتِ وَالْأَرْضَ وَلاَ يَؤُودُهُ حِفْظُهُمَا وَهُوَ الْعَلِيُّ الْعَظِيمُ﴾.',
-      rounds: 1,
-      prove: 'prove',
-    ),
-    Athkar(
-      name:
-          'أَعُوذُ بِاللَّهِ مِنَ الشَّيطَانِ الرَّجِيمِ ﴿اللَّهُ لاَ إِلَهَ إِلاَّ هُوَ الْحَيُّ الْقَيُّومُ لاَ تَأْخُذُهُ سِنَةٌ وَلاَ نَوْمٌ لَّهُ مَا فِي السَّمَوَاتِ وَمَا فِي الأَرْضِ مَن ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلاَّ بِإِذْنِهِ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلاَ يُحِيطُونَ بِشَيْءٍ مِّنْ عِلْمِهِ إِلاَّ بِمَا شَاء وَسِعَ كُرْسِيُّهُ السَّمَوَاتِ وَالْأَرْضَ وَلاَ يَؤُودُهُ حِفْظُهُمَا وَهُوَ الْعَلِيُّ الْعَظِيمُ﴾.',
+          '﴿اللَّهُ لاَ إِلَهَ إِلاَّ هُوَ الْحَيُّ الْقَيُّومُ لاَ تَأْخُذُهُ سِنَةٌ وَلاَ نَوْمٌ لَّهُ مَا فِي السَّمَوَاتِ وَمَا فِي الأَرْضِ مَن ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلاَّ بِإِذْنِهِ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلاَ يُحِيطُونَ بِشَيْءٍ مِّنْ عِلْمِهِ إِلاَّ بِمَا شَاء وَسِعَ كُرْسِيُّهُ السَّمَوَاتِ وَالْأَرْضَ وَلاَ يَؤُودُهُ حِفْظُهُمَا وَهُوَ الْعَلِيُّ الْعَظِيمُ﴾.',
       rounds: 1,
       prove: 'prove',
     ),
@@ -40,33 +35,56 @@ class _AthkarPageState extends State<AthkarPage> {
   ];
 
   var indexer = 0;
+  var rounds = 1;
+
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: const MyAppBar(
-        title: 'fs',
+        title: 'أذكار المساء',
         isHomePage: false,
       ),
       body: Padding(
         padding: EdgeInsets.all(screenSize * 0.02),
         child: InkWell(
-          onTap: (){
-            if(indexer < 3){
+          onTap: () {
+            if (indexer < athkarList.length - 1 && rounds == 1) {
               setState(() {
                 indexer += 1;
+                rounds = athkarList[indexer].rounds;
               });
+            }
+            else if(indexer < athkarList.length - 1){
+              setState(() {
+                rounds -=1;
+              });
+            }
+            else {
+              print('done');
             }
           },
           child: Column(
             children: [
               Expanded(
-                child: Center(
-                  child: Text(
-                    athkarList[indexer].name,
-                    textAlign: TextAlign.center,
-                    textDirection: TextDirection.rtl,
-                  ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    if(athkarList[indexer].title != null)Text('${athkarList[indexer].title}'),
+                    Text(
+                      athkarList[indexer].name,
+                      textAlign: TextAlign.center,
+                      textDirection: TextDirection.rtl,
+                    ),
+                    Text(
+                      athkarList[indexer].prove,
+                      textAlign: TextAlign.center,
+                      textDirection: TextDirection.rtl,
+                      style: TextStyle(
+                        color: Colors.grey.withOpacity(0.8)
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Stack(
@@ -84,9 +102,27 @@ class _AthkarPageState extends State<AthkarPage> {
                     ),
                     child: Center(
                         child: Text(
-                      '${athkarList[indexer].rounds}',
+                      '$rounds',
                       style: Theme.of(context).textTheme.titleSmall,
                     )),
+                  ),
+                  Positioned(
+                    left: 0,
+                    top: 0,
+                    child: Text('${athkarList.length} / ${indexer + 1}'),
+                  ),
+                  Positioned(
+                    right: 0,
+                    top: 0,
+                    child: TextButton(
+                      onPressed: (){},
+                      style: ButtonStyle(
+                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        padding: MaterialStateProperty.all<EdgeInsets>(
+                            const EdgeInsets.all(0.0)),
+                      ),
+                      child: const Text('تخطي'),
+                    ),
                   ),
                 ],
               ),
