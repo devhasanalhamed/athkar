@@ -46,7 +46,8 @@ class _AthkarPageState extends State<AthkarPage> {
         appBar: MyAppBar(
           title: 'أذكار المساء',
           isHomePage: false,
-          value: '${athkarList.length} / ${indexer + 1}',
+          isAthkarPage: true,
+          value: ((indexer) / athkarList.length * 100).toInt(),
         ),
         body: Padding(
           padding: EdgeInsets.all(screenSize * 0.02),
