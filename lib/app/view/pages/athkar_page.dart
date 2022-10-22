@@ -40,93 +40,104 @@ class _AthkarPageState extends State<AthkarPage> {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size.height;
-    return Scaffold(
-      appBar: const MyAppBar(
-        title: 'أذكار المساء',
-        isHomePage: false,
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(screenSize * 0.02),
-        child: InkWell(
-          onTap: () {
-            if (indexer < athkarList.length - 1 && rounds == 1) {
-              setState(() {
-                indexer += 1;
-                rounds = athkarList[indexer].rounds;
-              });
-            }
-            else if(indexer < athkarList.length - 1){
-              setState(() {
-                rounds -=1;
-              });
-            }
-            else {
-              print('done');
-            }
-          },
-          child: Column(
-            children: [
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        appBar: MyAppBar(
+          title: 'أذكار المساء',
+          isHomePage: false,
+          value: '${athkarList.length} / ${indexer + 1}',
+        ),
+        body: Padding(
+          padding: EdgeInsets.all(screenSize * 0.02),
+          child: InkWell(
+            onTap: () {
+              if (indexer < athkarList.length - 1 && rounds == 1) {
+                setState(() {
+                  indexer += 1;
+                  rounds = athkarList[indexer].rounds;
+                });
+              }
+              else if(indexer < athkarList.length - 1){
+                setState(() {
+                  rounds -=1;
+                });
+              }
+              else {
+                print('done');
+              }
+            },
+            child: Column(
+              children: [
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      if(athkarList[indexer].title != null)Text('${athkarList[indexer].title}'),
+                      Text(
+                        athkarList[indexer].name,
+                        textAlign: TextAlign.center,
+                        textDirection: TextDirection.rtl,
+                      ),
+                      Text(
+                        athkarList[indexer].prove,
+                        textAlign: TextAlign.center,
+                        textDirection: TextDirection.rtl,
+                        style: TextStyle(
+                          color: Colors.grey.withOpacity(0.8)
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: TextButton(
+                    child: const Text('تخطي'),
+                    onPressed: (){},
+                  ),
+                ),
+                Stack(
+                  alignment: Alignment.center,
                   children: [
-                    if(athkarList[indexer].title != null)Text('${athkarList[indexer].title}'),
-                    Text(
-                      athkarList[indexer].name,
-                      textAlign: TextAlign.center,
-                      textDirection: TextDirection.rtl,
+                    const Divider(
+                      thickness: 3.0,
                     ),
-                    Text(
-                      athkarList[indexer].prove,
-                      textAlign: TextAlign.center,
-                      textDirection: TextDirection.rtl,
-                      style: TextStyle(
-                        color: Colors.grey.withOpacity(0.8)
+                    Container(
+                      height: 60,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                      child: Center(
+                          child: Text(
+                        '$rounds',
+                        style: Theme.of(context).textTheme.titleSmall,
+                      )),
+                    ),
+                    if(indexer > 0)Positioned(
+                      right: 0,
+                      top: 0,
+                      child: TextButton(
+                        onPressed: (){
+                          setState(() {
+                            indexer -= 1;
+                            rounds = 1;
+                          });
+                        },
+                        style: ButtonStyle(
+                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          padding: MaterialStateProperty.all<EdgeInsets>(
+                              const EdgeInsets.all(0.0)),
+                        ),
+                        child: const Text('السابق'),
                       ),
                     ),
                   ],
                 ),
-              ),
-              Stack(
-                alignment: Alignment.center,
-                children: [
-                  const Divider(
-                    thickness: 3.0,
-                  ),
-                  Container(
-                    height: 60,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Theme.of(context).primaryColor,
-                    ),
-                    child: Center(
-                        child: Text(
-                      '$rounds',
-                      style: Theme.of(context).textTheme.titleSmall,
-                    )),
-                  ),
-                  Positioned(
-                    left: 0,
-                    top: 0,
-                    child: Text('${athkarList.length} / ${indexer + 1}'),
-                  ),
-                  Positioned(
-                    right: 0,
-                    top: 0,
-                    child: TextButton(
-                      onPressed: (){},
-                      style: ButtonStyle(
-                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        padding: MaterialStateProperty.all<EdgeInsets>(
-                            const EdgeInsets.all(0.0)),
-                      ),
-                      child: const Text('تخطي'),
-                    ),
-                  ),
-                ],
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
