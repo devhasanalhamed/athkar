@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final bool isHomePage;
-  final bool? isAthkarPage;
-  final int? value;
 
-  const MyAppBar({this.isAthkarPage, required this.title, required this.isHomePage,this.value, super.key});
+  const MyAppBar({required this.title, required this.isHomePage, super.key});
 
   @override
   Size get preferredSize => const Size.fromHeight(60);
@@ -27,10 +25,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                 icon: const Icon(Icons.sunny),
               ),
             ]
-          : isAthkarPage != null? [Center(child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5),
-            child: Text('$value %',textDirection:TextDirection.ltr,),
-          ))]:null,
+          : null,
       centerTitle: isHomePage? false:true,
     );
   }

@@ -1,13 +1,15 @@
 
 class Athkar {
-  final String? title;
   final String name;
+  final String content;
+  final String fadl;
   final int rounds;
   final String prove;
 
   Athkar({
-    this.title,
     required this.name,
+    required this.content,
+    required this.fadl,
     required this.rounds,
     required this.prove,
 });
