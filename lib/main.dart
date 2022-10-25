@@ -1,3 +1,4 @@
+import 'package:athkar/app/data/database/athkar_database.dart';
 import 'package:athkar/app/data/database/tasbih_database.dart';
 import 'package:athkar/app/view/pages/athkar_page.dart';
 import 'package:athkar/core/theme/data/dark_theme_data.dart';
@@ -24,6 +25,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (ctx) => TasbihDatabase(),
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => AthkarDatabase(),
         ),
       ],
       child: MaterialApp(

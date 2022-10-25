@@ -1,6 +1,8 @@
+import 'package:athkar/app/data/database/athkar_database.dart';
 import 'package:athkar/app/data/models/athkar_model.dart';
 import 'package:athkar/app/view/widgets/appbar.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AthkarPage extends StatefulWidget {
   static const routeName = 'athkar/page';
@@ -12,44 +14,46 @@ class AthkarPage extends StatefulWidget {
 }
 
 class _AthkarPageState extends State<AthkarPage> {
-  List<Athkar> athkarList = [
-    Athkar(
-      name: 'آية الكرسي',
-      content:
-          '﴿اللَّهُ لاَ إِلَهَ إِلاَّ هُوَ الْحَيُّ الْقَيُّومُ لاَ تَأْخُذُهُ سِنَةٌ وَلاَ نَوْمٌ لَّهُ مَا فِي السَّمَوَاتِ وَمَا فِي الأَرْضِ مَن ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلاَّ بِإِذْنِهِ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلاَ يُحِيطُونَ بِشَيْءٍ مِّنْ عِلْمِهِ إِلاَّ بِمَا شَاء وَسِعَ كُرْسِيُّهُ السَّمَوَاتِ وَالْأَرْضَ وَلاَ يَؤُودُهُ حِفْظُهُمَا وَهُوَ الْعَلِيُّ الْعَظِيمُ﴾.',
-      fadl: 'fadl',
-      rounds: 1,
-      prove: 'prove',
-    ),
-    Athkar(
-      name:'المعوذات',
-      content:'بسم الله الرحمن الرحيم ﴿قُلْ هُوَ اللَّهُ أَحَدٌ* اللَّهُ الصَّمَدُ* لَمْ يَلِدْ وَلَمْ يُولَدْ* وَلَمْ يَكُن لَّهُ كُفُواً أَحَدٌ﴾. بسم الله الرحمن الرحيم ﴿قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ* مِن شَرِّ مَا خَلَقَ* وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ* وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ* وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ﴾. بسم الله الرحمن الرحيم ﴿قُلْ أَعُوذُ بِرَبِّ النَّاسِ* مَلِكِ النَّاسِ* إِلَهِ النَّاسِ* مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ* الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ* مِنَ الْجِنَّةِ وَ النَّاسِ﴾.',
-      fadl: 'fadl',
-      rounds: 3,
-      prove: 'prove',
-    ),
-    Athkar(
-      name: 'ذكر',
-      content:'((أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ ، وَالْحَمْدُ لِلَّهِ، لاَ إِلَهَ إلاَّ اللَّهُ وَحْدَهُ لاَ شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ، رَبِّ أَسْأَلُكَ خَيْرَ مَا فِي هَذَا الْيَوْمِ وَخَيرَ مَا بَعْدَهُ ، وَأَعُوذُ بِكَ مِنْ شَرِّ مَا فِي هَذَا الْيَوْمِ وَشَرِّ مَا بَعْدَهُ، رَبِّ أَعُوذُ بِكَ مِنَ الْكَسَلِ وَسُوءِ الْكِبَرِ، رَبِّ أَعُوذُ بِكَ مِنْ عَذَابٍ فِي النَّارِ وَعَذَابٍ فِي الْقَبْرِ)). [ وإذا أمسى قال: أمسينا وأمسى الملك للَّه] [وإذا أمسى قال: رب أسألك خير ما في هذه الليلة، وخير ما بعدها، وأعوذ بك من شر ما في هذه الليلة، وشر ما بعدها.]',
-      fadl: 'fadl',
-      rounds: 1,
-      prove: 'prove',
-    ),
-  ];
-
   var indexer = 0;
   var rounds = 1;
+  var counter = 1;
 
-  int counts(){
-    var x = 0;
-    for(int i = 0; i < athkarList.length; i++){
-      x += athkarList[i].rounds;
-    }
-    return x;
-  }
   @override
   Widget build(BuildContext context) {
+    List<Athkar> athkarList = Provider.of<AthkarDatabase>(context).athkarList;
     final screenSize = MediaQuery.of(context).size.height;
+
+    int counts() {
+      var x = 0;
+      for (int i = 0; i < athkarList.length; i++) {
+        x += athkarList[i].rounds;
+      }
+      return x;
+    }
+
+    void next (bool skip){
+      if (indexer < athkarList.length - 1 && rounds == 1 ||indexer < athkarList.length - 1 && skip) {
+        setState(() {
+          indexer += 1;
+          rounds = athkarList[indexer].rounds;
+          counter +=1;
+        });
+      } else if (indexer < athkarList.length - 1) {
+        setState(() {
+          rounds -= 1;
+          counter +=1;
+        });
+      }
+    }
+
+    void previous (){
+      setState(() {
+        indexer -= 1;
+        rounds = 1;
+        counter -=1;
+      });
+    }
+
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -60,28 +64,19 @@ class _AthkarPageState extends State<AthkarPage> {
         body: Padding(
           padding: EdgeInsets.all(screenSize * 0.02),
           child: InkWell(
-            onTap: () {
-              if (indexer < athkarList.length - 1 && rounds == 1) {
-                setState(() {
-                  indexer += 1;
-                  rounds = athkarList[indexer].rounds;
-                });
-              }
-              else if(indexer < athkarList.length - 1){
-                setState(() {
-                  rounds -=1;
-                });
-              }
-              else {
-              }
-            },
+            onTap: () => next(false),
             child: Column(
               children: [
                 Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Text(athkarList[indexer].name),
+                      Text(
+                        athkarList[indexer].name,
+                        style: const TextStyle(
+                          color: Colors.black,
+                        ),
+                      ),
                       Text(
                         athkarList[indexer].content,
                         textAlign: TextAlign.center,
@@ -91,9 +86,7 @@ class _AthkarPageState extends State<AthkarPage> {
                         athkarList[indexer].fadl,
                         textAlign: TextAlign.center,
                         textDirection: TextDirection.rtl,
-                        style: TextStyle(
-                          color: Colors.grey.withOpacity(0.8)
-                        ),
+                        style: TextStyle(color: Colors.grey.withOpacity(0.8)),
                       ),
                     ],
                   ),
@@ -101,8 +94,8 @@ class _AthkarPageState extends State<AthkarPage> {
                 SizedBox(
                   width: double.infinity,
                   child: TextButton(
-                    child: const Text('تخطي'),
-                    onPressed: (){},
+                    onPressed: indexer == athkarList.length - 1?()=> Navigator.of(context).pop():() => next(true),
+                    child:  indexer == athkarList.length - 1?const Text('النهاية'):const Text('تخطي'),
                   ),
                 ),
                 Stack(
@@ -120,29 +113,25 @@ class _AthkarPageState extends State<AthkarPage> {
                       ),
                       child: Center(
                           child: Text(
-                        '${(indexer + 1 / counts() * 100).toInt()}%',
+                        '${(counter / counts() * 100).toInt()}%',
                         textDirection: TextDirection.ltr,
                         style: Theme.of(context).textTheme.titleSmall,
                       )),
                     ),
-                    if(indexer > 0)Positioned(
-                      right: 0,
-                      top: 0,
-                      child: TextButton(
-                        onPressed: (){
-                          setState(() {
-                            indexer -= 1;
-                            rounds = 1;
-                          });
-                        },
-                        style: ButtonStyle(
-                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                          padding: MaterialStateProperty.all<EdgeInsets>(
-                              const EdgeInsets.all(0.0)),
+                    if (indexer > 0)
+                      Positioned(
+                        right: 0,
+                        top: 0,
+                        child: TextButton(
+                          onPressed: previous,
+                          style: ButtonStyle(
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            padding: MaterialStateProperty.all<EdgeInsets>(
+                                const EdgeInsets.all(0.0)),
+                          ),
+                          child: const Text('السابق'),
                         ),
-                        child: const Text('السابق'),
                       ),
-                    ),
                   ],
                 ),
               ],
