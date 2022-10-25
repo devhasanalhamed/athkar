@@ -1,5 +1,6 @@
 import 'package:athkar/app/view/widgets/appbar.dart';
 import 'package:athkar/app/view/widgets/counter.dart';
+import 'package:athkar/app/view/widgets/information.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -26,7 +27,7 @@ class _MyHomePageState extends State<MyHomePage> {
         padding: EdgeInsets.all(screenHeight * 0.02),
         child: ListView(
           children: [
-            MyCounter(
+            MyInformation(
               title: 'معلومات',
               icon: FontAwesomeIcons.info,
               width: double.infinity,
