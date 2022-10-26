@@ -1,8 +1,14 @@
+import 'dart:convert';
+
+import 'package:athkar/app/data/data.dart';
 import 'package:athkar/app/view/widgets/appbar.dart';
 import 'package:athkar/app/view/widgets/counter.dart';
 import 'package:athkar/app/view/widgets/information.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import 'package:http/http.dart' as http;
+
 
 import '../widgets/athkar.dart';
 
@@ -16,6 +22,19 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   static const myAppBar = MyAppBar(title: 'أذكار اليوم والليلة',isHomePage: true,);
 
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
+  Future<void> getData() async{
+    String url ='https://api.aladhan.com/v1/timingsByCity?city=Riyadh&country=Saudi%20Arabia%20Arab%20Emirates&method=4';
+    final response = await http.get(Uri.parse(url));
+    
+    final list = Data.fromJson(jsonDecode(response.body));
+    print(list.date.readable);
+  }
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height -
