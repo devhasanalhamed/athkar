@@ -1,4 +1,6 @@
+import 'package:athkar/core/theme/controller/theme_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -21,7 +23,9 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: isHomePage
           ? [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Provider.of<ThemeController>(context,listen: false).toggleTheme();
+                },
                 icon: const Icon(Icons.sunny),
               ),
             ]
