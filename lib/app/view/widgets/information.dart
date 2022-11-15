@@ -27,21 +27,25 @@ class MyInformation extends StatelessWidget {
   late String isha;
 
   Future<void> getData() async {
-
     String url =
         'https://api.aladhan.com/v1/timingsByCity?city=Riyadh&country=Saudi%20Arabia%20Arab%20Emirates&method=4';
-    final response = await http.get(Uri.parse(url));
-    final data = jsonDecode(response.body);
-    final list = Data.fromJson(data['data']);
-    fajr = list.timings.fajr;
-    dhuhr = list.timings.dhuhr;
-    asr = list.timings.asr;
-    maghrib = list.timings.maghrib;
-    isha = list.timings.fajr;
+    try {
+      final response = await http.get(Uri.parse(url));
+      final data = jsonDecode(response.body);
+      final list = Data.fromJson(data['data']);
+      fajr = list.timings.fajr;
+      dhuhr = list.timings.dhuhr;
+      asr = list.timings.asr;
+      maghrib = list.timings.maghrib;
+      isha = list.timings.fajr;
+    } catch (e) {
+      rethrow;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    bool isFail = false;
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: 10,
@@ -60,102 +64,117 @@ class MyInformation extends StatelessWidget {
         ),
       ),
       child: FutureBuilder(
-        future: getData(),
-        builder: (context, connectionState) =>
-            connectionState.connectionState == ConnectionState.done
-                ? Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 50,
-                          vertical: 30,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
+          future: getData().catchError((_) => isFail = true),
+          builder: (context, connectionState) {
+            if (connectionState.connectionState == ConnectionState.done && !isFail) {
+              return Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 50,
+                      vertical: 30,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Text(
-                                  '${DateTime.now().month}/${DateTime.now().day}/${DateTime.now().year}',
-                                  style: Theme.of(context).textTheme.titleSmall,
-                                ),
-                                Text(
-                                  title,
-                                  style: Theme.of(context).textTheme.titleSmall,
-                                ),
-                              ],
+                            Text(
+                              '${DateTime.now().month}/${DateTime.now().day}/${DateTime.now().year}',
+                              style: Theme.of(context).textTheme.titleSmall,
                             ),
-                            Icon(
-                              icon,
-                              size: 50,
+                            Text(
+                              title,
+                              style: Theme.of(context).textTheme.titleSmall,
                             ),
                           ],
                         ),
+                        Icon(
+                          icon,
+                          size: 50,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'الفجر',
+                        style: Theme.of(context).textTheme.titleSmall,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'الفجر',
-                            style: Theme.of(context).textTheme.titleSmall,
-                          ),
-                          const SizedBox(width: 8),
-                          Text(
-                            'الظهر',
-                            style: Theme.of(context).textTheme.titleSmall,
-                          ),
-                          const SizedBox(width: 8),
-                          Text(
-                            'العصر',
-                            style: Theme.of(context).textTheme.titleSmall,
-                          ),
-                          const SizedBox(width: 8),
-                          Text(
-                            'المغرب',
-                            style: Theme.of(context).textTheme.titleSmall,
-                          ),
-                          const SizedBox(width: 8),
-                          Text(
-                            'العشاء',
-                            style: Theme.of(context).textTheme.titleSmall,
-                          ),
-                        ],
+                      const SizedBox(width: 8),
+                      Text(
+                        'الظهر',
+                        style: Theme.of(context).textTheme.titleSmall,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            fajr,
-                            style: Theme.of(context).textTheme.titleSmall,
-                          ),
-                          const SizedBox(width: 12),
-                          Text(
-                            dhuhr,
-                            style: Theme.of(context).textTheme.titleSmall,
-                          ),
-                          const SizedBox(width: 12),
-                          Text(
-                            asr,
-                            style: Theme.of(context).textTheme.titleSmall,
-                          ),
-                          const SizedBox(width: 12),
-                          Text(
-                            maghrib,
-                            style: Theme.of(context).textTheme.titleSmall,
-                          ),
-                          const SizedBox(width: 12),
-                          Text(
-                            isha,
-                            style: Theme.of(context).textTheme.titleSmall,
-                          ),
-                        ],
+                      const SizedBox(width: 8),
+                      Text(
+                        'العصر',
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        'المغرب',
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        'العشاء',
+                        style: Theme.of(context).textTheme.titleSmall,
                       ),
                     ],
-                  )
-                : const Center(child: CircularProgressIndicator()),
-      ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        fajr,
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                      const SizedBox(width: 12),
+                      Text(
+                        dhuhr,
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                      const SizedBox(width: 12),
+                      Text(
+                        asr,
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                      const SizedBox(width: 12),
+                      Text(
+                        maghrib,
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                      const SizedBox(width: 12),
+                      Text(
+                        isha,
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                    ],
+                  ),
+                ],
+              );
+            }
+            else if(isFail){
+              return Center(
+                child: Column(
+                  children: const [
+                    Text('😭'),
+                    Text('no internet connection'),
+                  ],
+                ),
+              );
+            }
+            else {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          }),
     );
   }
 }
