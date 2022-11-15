@@ -1,6 +1,7 @@
 import 'package:athkar/app/data/database/athkar_database.dart';
 import 'package:athkar/app/data/database/tasbih_database.dart';
 import 'package:athkar/app/view/pages/athkar_page.dart';
+import 'package:athkar/core/theme/controller/theme_controller.dart';
 import 'package:athkar/core/theme/data/dark_theme_data.dart';
 import 'package:athkar/core/theme/data/light_theme_data.dart';
 import 'package:flutter/material.dart';
@@ -10,10 +11,10 @@ import 'app/view/pages/counter.dart';
 
 import 'app/view/pages/home.dart';
 
-
-
 void main() {
-  runApp(const MyApp());
+  runApp(
+    const MyApp(),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -29,22 +30,26 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (ctx) => AthkarDatabase(),
         ),
-      ],
-      child: MaterialApp(
-        title: 'أذكار اليوم والليلة',
-        theme: getLightThemeData(),
-        darkTheme: getDarkThemeData(),
-        themeMode: ThemeMode.system,
-        home: const Directionality(
-          textDirection: TextDirection.rtl,
-          child: MyHomePage(),
+        ChangeNotifierProvider(
+          create: (ctx) => ThemeController(),
         ),
-        routes: {
-          MyCounterPage.routeName : (context) => const MyCounterPage(),
-          AthkarPage.routeName: (context) => const AthkarPage(),
-        },
+      ],
+      child: Consumer<ThemeController>(
+        builder: (context, theme, child) => MaterialApp(
+          title: 'أذكار اليوم والليلة',
+          theme: getLightThemeData(),
+          darkTheme: getDarkThemeData(),
+          themeMode: theme.themeController,
+          home: const Directionality(
+            textDirection: TextDirection.rtl,
+            child: MyHomePage(),
+          ),
+          routes: {
+            MyCounterPage.routeName: (context) => const MyCounterPage(),
+            AthkarPage.routeName: (context) => const AthkarPage(),
+          },
+        ),
       ),
     );
   }
 }
-
