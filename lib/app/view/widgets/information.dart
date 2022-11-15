@@ -160,13 +160,12 @@ class MyInformation extends StatelessWidget {
               );
             }
             else if(isFail){
-              return Center(
-                child: Column(
-                  children: const [
-                    Text('😭'),
-                    Text('no internet connection'),
-                  ],
-                ),
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text('😭'),
+                  Text('no internet connection'),
+                ],
               );
             }
             else {
