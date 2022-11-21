@@ -20,8 +20,14 @@ class _AthkarPageState extends State<AthkarPage> {
 
   @override
   Widget build(BuildContext context) {
+    const myAppBar = MyAppBar(
+      title: 'أذكار المساء',
+      isHomePage: false,
+    );
     List<Athkar> athkarList = Provider.of<AthkarDatabase>(context).athkarList;
-    final screenSize = MediaQuery.of(context).size.height;
+    final screenSize = MediaQuery.of(context).size.height -
+        MediaQuery.of(context).padding.top -
+        myAppBar.preferredSize.height;
 
     int counts() {
       var x = 0;
@@ -31,111 +37,135 @@ class _AthkarPageState extends State<AthkarPage> {
       return x;
     }
 
-    void next (bool skip){
-      if (indexer < athkarList.length - 1 && rounds == 1 ||indexer < athkarList.length - 1 && skip) {
+    void next(bool skip) {
+      if (indexer < athkarList.length - 1 && rounds == 1 ||
+          indexer < athkarList.length - 1 && skip) {
         setState(() {
           indexer += 1;
           rounds = athkarList[indexer].rounds;
-          counter +=1;
+          counter += 1;
         });
       } else if (indexer < athkarList.length - 1) {
         setState(() {
           rounds -= 1;
-          counter +=1;
+          counter += 1;
         });
       }
     }
 
-    void previous (){
+    void previous() {
       setState(() {
         indexer -= 1;
         rounds = 1;
-        counter -=1;
+        counter -= 1;
       });
     }
 
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: const MyAppBar(
-          title: 'أذكار المساء',
-          isHomePage: false,
-        ),
-        body: Padding(
-          padding: EdgeInsets.all(screenSize * 0.02),
-          child: InkWell(
-            onTap: () => next(false),
-            child: Column(
-              children: [
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Text(
-                        athkarList[indexer].name,
-                        style: const TextStyle(
-                          color: Colors.black,
-                        ),
-                      ),
-                      Text(
-                        athkarList[indexer].content,
-                        textAlign: TextAlign.center,
-                        textDirection: TextDirection.rtl,
-                      ),
-                      Text(
-                        athkarList[indexer].fadl,
-                        textAlign: TextAlign.center,
-                        textDirection: TextDirection.rtl,
-                        style: TextStyle(color: Colors.grey.withOpacity(0.8)),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  width: double.infinity,
-                  child: TextButton(
-                    onPressed: indexer == athkarList.length - 1?()=> Navigator.of(context).pop():() => next(true),
-                    child:  indexer == athkarList.length - 1?const Text('النهاية'):const Text('تخطي'),
-                  ),
-                ),
-                Stack(
-                  alignment: Alignment.center,
+        appBar: myAppBar,
+        body: GestureDetector(
+          onTap: () {
+            if (indexer < athkarList.length - 1) {
+              setState(() {
+                indexer += 1;
+              });
+            }
+          },
+          onDoubleTap: () {
+            if (indexer != 0) {
+              setState(() {
+                indexer--;
+              });
+            }
+          },
+          child: Column(
+            children: [
+              SizedBox(
+                height: screenSize * 0.04,
+                child: Row(
                   children: [
-                    const Divider(
-                      thickness: 3.0,
-                    ),
-                    Container(
-                      height: 60,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                      child: Center(
-                          child: Text(
-                        '${(counter / counts() * 100).toInt()}%',
-                        textDirection: TextDirection.ltr,
-                        style: Theme.of(context).textTheme.titleSmall,
-                      )),
-                    ),
-                    if (indexer > 0)
-                      Positioned(
-                        right: 0,
-                        top: 0,
-                        child: TextButton(
-                          onPressed: previous,
-                          style: ButtonStyle(
-                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                            padding: MaterialStateProperty.all<EdgeInsets>(
-                                const EdgeInsets.all(0.0)),
-                          ),
-                          child: const Text('السابق'),
+                    for (int i = 0; i < athkarList.length; i++)
+                      Expanded(
+                        child: Container(
+                          color: indexer == i ? Colors.blue : Colors.grey,
+                          child: Center(
+                              child: Text(
+                            '$i',
+                            style: const TextStyle(color: Colors.white),
+                          )),
                         ),
                       ),
                   ],
                 ),
-              ],
-            ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                  top: screenSize * 0.02,
+                  right: screenSize * 0.02,
+                  left: screenSize * 0.02,
+                ),
+                child: SizedBox(
+                  height: screenSize * 0.92,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Text(
+                            athkarList[indexer].content,
+                            textAlign: TextAlign.center,
+                            textDirection: TextDirection.rtl,
+                          ),
+                          Text(
+                            athkarList[indexer].fadl,
+                            textAlign: TextAlign.center,
+                            textDirection: TextDirection.rtl,
+                            style:
+                                TextStyle(color: Colors.grey.withOpacity(0.8)),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        child: TextButton(
+                          onPressed: indexer == athkarList.length - 1
+                              ? () => Navigator.of(context).pop()
+                              : () => next(true),
+                          child: indexer == athkarList.length - 1
+                              ? const Text('النهاية')
+                              : const Text('تخطي'),
+                        ),
+                      ),
+                      Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          const Divider(
+                            thickness: 3.0,
+                          ),
+                          Container(
+                            height: 60,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Theme.of(context).primaryColor,
+                            ),
+                            child: Center(
+                                child: Text(
+                              '${(counter / counts() * 100).toInt()}%',
+                              textDirection: TextDirection.ltr,
+                              style: Theme.of(context).textTheme.titleSmall,
+                            )),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
