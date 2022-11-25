@@ -15,8 +15,9 @@ class AthkarPage extends StatefulWidget {
 
 class _AthkarPageState extends State<AthkarPage> {
   var indexer = 0;
-  var rounds = 1;
-  var counter = 1;
+  final myPageController = PageController(
+    initialPage: 0,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -29,144 +30,130 @@ class _AthkarPageState extends State<AthkarPage> {
         MediaQuery.of(context).padding.top -
         myAppBar.preferredSize.height;
 
-    int counts() {
-      var x = 0;
-      for (int i = 0; i < athkarList.length; i++) {
-        x += athkarList[i].rounds;
-      }
-      return x;
-    }
-
-    void next(bool skip) {
-      if (indexer < athkarList.length - 1 && rounds == 1 ||
-          indexer < athkarList.length - 1 && skip) {
-        setState(() {
-          indexer += 1;
-          rounds = athkarList[indexer].rounds;
-          counter += 1;
-        });
-      } else if (indexer < athkarList.length - 1) {
-        setState(() {
-          rounds -= 1;
-          counter += 1;
-        });
-      }
-    }
-
-    void previous() {
-      setState(() {
-        indexer -= 1;
-        rounds = 1;
-        counter -= 1;
-      });
-    }
-
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
         appBar: myAppBar,
-        body: GestureDetector(
-          onTap: () {
-            if (indexer < athkarList.length - 1) {
-              setState(() {
-                indexer += 1;
-              });
-            }
-          },
-          onDoubleTap: () {
-            if (indexer != 0) {
-              setState(() {
-                indexer--;
-              });
-            }
-          },
-          child: Column(
-            children: [
-              SizedBox(
-                height: screenSize * 0.04,
-                child: Row(
-                  children: [
-                    for (int i = 0; i < athkarList.length; i++)
-                      Expanded(
-                        child: Container(
-                          color: indexer == i ? Colors.blue : Colors.grey,
-                          child: Center(
-                              child: Text(
-                            '$i',
-                            style: const TextStyle(color: Colors.white),
-                          )),
+        body: Column(
+          children: [
+            SizedBox(
+              height: screenSize * 0.02,
+              child: Row(
+                children: [
+                  for (int i = 0; i < athkarList.length; i++)
+                    Expanded(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: indexer >= i ? Colors.blue : Colors.grey,
+                          border: i == 0
+                              ? null
+                              : const Border(
+                                  right: BorderSide(
+                                    color: Colors.white,
+                                  ),
+                                ),
                         ),
                       ),
-                  ],
-                ),
+                    ),
+                ],
               ),
-              Padding(
-                padding: EdgeInsets.only(
-                  top: screenSize * 0.02,
-                  right: screenSize * 0.02,
-                  left: screenSize * 0.02,
-                ),
-                child: SizedBox(
-                  height: screenSize * 0.92,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            ),
+            SizedBox(
+              height: screenSize * 0.98,
+              child: InkWell(
+                onTap: () {
+                  myPageController.nextPage(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeIn);
+                },
+                onDoubleTap: () {
+                  myPageController.previousPage(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeIn);
+                },
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    top: screenSize * 0.02,
+                    right: screenSize * 0.02,
+                    left: screenSize * 0.02,
+                    bottom: screenSize * 0.01,
+                  ),
+                  child: PageView(
+                    controller: myPageController,
+                    onPageChanged: (index) {
+                      setState(() {
+                        indexer = index;
+                      });
+                    },
                     children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Text(
-                            athkarList[indexer].content,
-                            textAlign: TextAlign.center,
-                            textDirection: TextDirection.rtl,
-                          ),
-                          Text(
-                            athkarList[indexer].fadl,
-                            textAlign: TextAlign.center,
-                            textDirection: TextDirection.rtl,
-                            style:
-                                TextStyle(color: Colors.grey.withOpacity(0.8)),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        width: double.infinity,
-                        child: TextButton(
-                          onPressed: indexer == athkarList.length - 1
-                              ? () => Navigator.of(context).pop()
-                              : () => next(true),
-                          child: indexer == athkarList.length - 1
-                              ? const Text('النهاية')
-                              : const Text('تخطي'),
-                        ),
-                      ),
-                      Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          const Divider(
-                            thickness: 3.0,
-                          ),
-                          Container(
-                            height: 60,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Theme.of(context).primaryColor,
+                      for (int i = 0; i < athkarList.length; i++)
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(
+                              height: screenSize * 0.70,
+                              child: ListView(
+                                children: [
+                                  Text(
+                                    athkarList[i].content,
+                                    textAlign: TextAlign.center,
+                                    textDirection: TextDirection.rtl,
+                                  ),
+                                  SizedBox(
+                                    height: screenSize * 0.2,
+                                  ),
+                                  Text(
+                                    athkarList[i].fadl,
+                                    textAlign: TextAlign.center,
+                                    textDirection: TextDirection.rtl,
+                                    style: TextStyle(
+                                        color: Colors.grey.withOpacity(0.8)),
+                                  ),
+                                ],
+                              ),
                             ),
-                            child: Center(
-                                child: Text(
-                              '${(counter / counts() * 100).toInt()}%',
-                              textDirection: TextDirection.ltr,
-                              style: Theme.of(context).textTheme.titleSmall,
-                            )),
-                          ),
-                        ],
-                      ),
+                            Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                const Divider(
+                                  thickness: 3.0,
+                                ),
+                                Container(
+                                  height: 60,
+                                  width: 100,
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(25),
+                                    ),
+                                    shape: BoxShape.rectangle,
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                                  child: Center(
+                                    child: indexer == athkarList.length - 1
+                                        ? const Text(
+                                            'النهاية',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                            ),
+                                          )
+                                        : Text(
+                                            'التالي',
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                     ],
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
