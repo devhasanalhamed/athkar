@@ -136,9 +136,9 @@ class _AthkarPageState extends State<AthkarPage> {
                                               color: Colors.white,
                                             ),
                                           )
-                                        : Text(
+                                        : const Text(
                                             'التالي',
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                               color: Colors.white,
                                             ),
                                           ),
