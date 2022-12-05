@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/database/tasbih_database.dart';
+import '../widgets/tasbih_bottom_sheet.dart';
 
 class MyCounterPage extends StatefulWidget {
   static String routeName = 'counter-page';
@@ -22,7 +23,7 @@ class _MyCounterPageState extends State<MyCounterPage> {
 
   @override
   Widget build(BuildContext context) {
-    var x = Provider.of<TasbihDatabase>(context).tasbihList;
+    final tasbihList = Provider.of<TasbihDatabase>(context).tasbihList;
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -100,33 +101,7 @@ class _MyCounterPageState extends State<MyCounterPage> {
                     onPressed: () {
                       showModalBottomSheet(
                         context: context,
-                        builder: (context) => Column(
-                          children: [
-                            Row(
-                              children: [
-                                IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.add,size: 18,color: Colors.black),
-                                )
-                              ],
-                            ),
-                            ...x
-                                .map(
-                                  (e) => ChoiceChip(
-                                    label: Text(
-                                      e.name,
-                                      style:
-                                          Theme.of(context).textTheme.bodySmall,
-                                    ),
-                                    onSelected: (_) {
-                                      Navigator.pop(context);
-                                    },
-                                    selected: false,
-                                  ),
-                                )
-                                .toList(),
-                          ],
-                        ),
+                        builder: (context) => const TasbihBottomSheet(),
                       );
                     },
                     icon: Icon(
@@ -141,7 +116,7 @@ class _MyCounterPageState extends State<MyCounterPage> {
                 alignment: WrapAlignment.end,
                 spacing: 6,
                 children: [
-                  ...x
+                  ...tasbihList
                       .map(
                         (e) => ChoiceChip(
                           label: Text(
