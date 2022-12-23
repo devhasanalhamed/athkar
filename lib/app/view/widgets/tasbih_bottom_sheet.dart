@@ -100,7 +100,9 @@ class _TasbihBottomSheetState extends State<TasbihBottomSheet> {
                   children: [
                     IconButton(
                       onPressed: (){
-                        Provider.of<TasbihDatabase>(context,listen: false).deleteTasbih(e.name);
+                        setState(() {
+                          Provider.of<TasbihDatabase>(context,listen: false).deleteTasbih(e.name);
+                        });
                       },
                       icon: const Icon(Icons.close),
                       color: Colors.red,

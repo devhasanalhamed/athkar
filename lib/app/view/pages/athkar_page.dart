@@ -37,21 +37,23 @@ class _AthkarPageState extends State<AthkarPage> {
         body: Column(
           children: [
             SizedBox(
-              height: screenSize * 0.02,
+              height: screenSize * 0.012,
               child: Row(
                 children: [
                   for (int i = 0; i < athkarList.length; i++)
                     Expanded(
                       child: Container(
                         decoration: BoxDecoration(
-                          color: indexer >= i ? Colors.blue : Colors.grey,
-                          border: i == 0
-                              ? null
-                              : const Border(
-                                  right: BorderSide(
-                                    color: Colors.white,
-                                  ),
-                                ),
+                          color: indexer >= i
+                              ? Theme.of(context).colorScheme.primary
+                              : Colors.grey,
+                          // border: i == 0
+                          //     ? null
+                          //     : const Border(
+                          //         right: BorderSide(
+                          //           color: Colors.white,
+                          //         ),
+                          //       ),
                         ),
                       ),
                     ),
@@ -63,19 +65,19 @@ class _AthkarPageState extends State<AthkarPage> {
               child: InkWell(
                 onTap: () {
                   myPageController.nextPage(
-                      duration: const Duration(milliseconds: 300),
+                      duration: const Duration(milliseconds: 150),
                       curve: Curves.easeIn);
                 },
-                onDoubleTap: () {
-                  myPageController.previousPage(
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.easeIn);
-                },
+                // onDoubleTap: () {
+                //   myPageController.previousPage(
+                //       duration: const Duration(milliseconds: 150),
+                //       curve: Curves.easeIn);
+                // },
                 child: Padding(
                   padding: EdgeInsets.only(
-                    top: screenSize * 0.02,
-                    right: screenSize * 0.02,
-                    left: screenSize * 0.02,
+                    top: screenSize * 0.04,
+                    // right: screenSize * 0.04,
+                    // left: screenSize * 0.04,
                     bottom: screenSize * 0.01,
                   ),
                   child: PageView(
@@ -92,60 +94,65 @@ class _AthkarPageState extends State<AthkarPage> {
                           children: [
                             SizedBox(
                               height: screenSize * 0.70,
-                              child: ListView(
-                                children: [
-                                  Text(
-                                    athkarList[i].content,
-                                    textAlign: TextAlign.center,
-                                    textDirection: TextDirection.rtl,
-                                  ),
-                                  SizedBox(
-                                    height: screenSize * 0.2,
-                                  ),
-                                  Text(
-                                    athkarList[i].fadl,
-                                    textAlign: TextAlign.center,
-                                    textDirection: TextDirection.rtl,
-                                    style: TextStyle(
-                                        color: Colors.grey.withOpacity(0.8)),
-                                  ),
-                                ],
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                ),
+                                child: ListView(
+                                  children: [
+                                    Text(
+                                      athkarList[i].content,
+                                      textAlign: TextAlign.center,
+                                      textDirection: TextDirection.rtl,
+                                    ),
+                                    SizedBox(
+                                      height: screenSize * 0.2,
+                                    ),
+                                    Text(
+                                      athkarList[i].fadl,
+                                      textAlign: TextAlign.center,
+                                      textDirection: TextDirection.rtl,
+                                      style: TextStyle(
+                                          color: Colors.grey.withOpacity(0.8)),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                            Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                const Divider(
-                                  thickness: 3.0,
-                                ),
-                                Container(
-                                  height: 60,
-                                  width: 100,
-                                  decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(
-                                      Radius.circular(25),
-                                    ),
-                                    shape: BoxShape.rectangle,
-                                    color: Theme.of(context).primaryColor,
-                                  ),
-                                  child: Center(
-                                    child: indexer == athkarList.length - 1
-                                        ? const Text(
-                                            'النهاية',
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                            ),
-                                          )
-                                        : const Text(
-                                            'التالي',
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                            // Stack(
+                            //   alignment: Alignment.center,
+                            //   children: [
+                            //     const Divider(
+                            //       thickness: 3.0,
+                            //     ),
+                            //     Container(
+                            //       height: 60,
+                            //       width: 100,
+                            //       decoration: BoxDecoration(
+                            //         borderRadius: const BorderRadius.all(
+                            //           Radius.circular(25),
+                            //         ),
+                            //         shape: BoxShape.rectangle,
+                            //         color: Theme.of(context).primaryColor,
+                            //       ),
+                            //       child: Center(
+                            //         child: indexer == athkarList.length - 1
+                            //             ? const Text(
+                            //                 'النهاية',
+                            //                 style: TextStyle(
+                            //                   color: Colors.white,
+                            //                 ),
+                            //               )
+                            //             : const Text(
+                            //                 'التالي',
+                            //                 style: TextStyle(
+                            //                   color: Colors.white,
+                            //                 ),
+                            //               ),
+                            //       ),
+                            //     ),
+                            //   ],
+                            // ),
                           ],
                         ),
                     ],
