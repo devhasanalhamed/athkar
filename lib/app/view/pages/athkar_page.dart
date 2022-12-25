@@ -45,7 +45,7 @@ class _AthkarPageState extends State<AthkarPage> {
                       child: Container(
                         decoration: BoxDecoration(
                           color: indexer >= i
-                              ? Theme.of(context).colorScheme.primary
+                              ? Theme.of(context).colorScheme.secondary
                               : Colors.grey,
                           // border: i == 0
                           //     ? null
