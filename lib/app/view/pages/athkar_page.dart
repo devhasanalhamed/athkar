@@ -73,90 +73,89 @@ class _AthkarPageState extends State<AthkarPage> {
                 //       duration: const Duration(milliseconds: 150),
                 //       curve: Curves.easeIn);
                 // },
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    top: screenSize * 0.04,
-                    // right: screenSize * 0.04,
-                    // left: screenSize * 0.04,
-                    bottom: screenSize * 0.01,
-                  ),
-                  child: PageView(
-                    controller: myPageController,
-                    onPageChanged: (index) {
-                      setState(() {
-                        indexer = index;
-                      });
-                    },
-                    children: [
-                      for (int i = 0; i < athkarList.length; i++)
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SizedBox(
-                              height: screenSize * 0.70,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 10,
-                                ),
-                                child: ListView(
-                                  children: [
-                                    Text(
-                                      athkarList[i].content,
-                                      textAlign: TextAlign.center,
-                                      textDirection: TextDirection.rtl,
+                child: PageView(
+                  controller: myPageController,
+                  onPageChanged: (index) {
+                    setState(() {
+                      indexer = index;
+                    });
+                  },
+                  children: [
+                    for (int i = 0; i < athkarList.length; i++)
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            height: screenSize * 0.98,
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                top: screenSize * 0.04,
+                                right: screenSize * 0.04,
+                                left: screenSize * 0.04,
+                                bottom: screenSize * 0.02,
+                              ),
+                              child: ListView(
+                                children: [
+                                  Text(
+                                    athkarList[i].content,
+                                    style: const TextStyle(
+                                      fontFamily: 'dfsf',
+                                      fontSize: 24,
                                     ),
-                                    SizedBox(
-                                      height: screenSize * 0.2,
-                                    ),
-                                    Text(
-                                      athkarList[i].fadl,
-                                      textAlign: TextAlign.center,
-                                      textDirection: TextDirection.rtl,
-                                      style: TextStyle(
-                                          color: Colors.grey.withOpacity(0.8)),
-                                    ),
-                                  ],
-                                ),
+                                    textAlign: TextAlign.center,
+                                    textDirection: TextDirection.rtl,
+                                  ),
+                                  // SizedBox(
+                                  //   height: screenSize * 0.2,
+                                  // ),
+                                  Text(
+                                    athkarList[i].fadl,
+                                    textAlign: TextAlign.center,
+                                    textDirection: TextDirection.rtl,
+                                    style: TextStyle(
+                                        color: Colors.grey.withOpacity(0.8)),
+                                  ),
+                                ],
                               ),
                             ),
-                            // Stack(
-                            //   alignment: Alignment.center,
-                            //   children: [
-                            //     const Divider(
-                            //       thickness: 3.0,
-                            //     ),
-                            //     Container(
-                            //       height: 60,
-                            //       width: 100,
-                            //       decoration: BoxDecoration(
-                            //         borderRadius: const BorderRadius.all(
-                            //           Radius.circular(25),
-                            //         ),
-                            //         shape: BoxShape.rectangle,
-                            //         color: Theme.of(context).primaryColor,
-                            //       ),
-                            //       child: Center(
-                            //         child: indexer == athkarList.length - 1
-                            //             ? const Text(
-                            //                 'النهاية',
-                            //                 style: TextStyle(
-                            //                   color: Colors.white,
-                            //                 ),
-                            //               )
-                            //             : const Text(
-                            //                 'التالي',
-                            //                 style: TextStyle(
-                            //                   color: Colors.white,
-                            //                 ),
-                            //               ),
-                            //       ),
-                            //     ),
-                            //   ],
-                            // ),
-                          ],
-                        ),
-                    ],
-                  ),
+                          ),
+                          // Stack(
+                          //   alignment: Alignment.center,
+                          //   children: [
+                          //     const Divider(
+                          //       thickness: 3.0,
+                          //     ),
+                          //     Container(
+                          //       height: 60,
+                          //       width: 100,
+                          //       decoration: BoxDecoration(
+                          //         borderRadius: const BorderRadius.all(
+                          //           Radius.circular(25),
+                          //         ),
+                          //         shape: BoxShape.rectangle,
+                          //         color: Theme.of(context).primaryColor,
+                          //       ),
+                          //       child: Center(
+                          //         child: indexer == athkarList.length - 1
+                          //             ? const Text(
+                          //                 'النهاية',
+                          //                 style: TextStyle(
+                          //                   color: Colors.white,
+                          //                 ),
+                          //               )
+                          //             : const Text(
+                          //                 'التالي',
+                          //                 style: TextStyle(
+                          //                   color: Colors.white,
+                          //                 ),
+                          //               ),
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
+                        ],
+                      ),
+                  ],
                 ),
               ),
             ),
