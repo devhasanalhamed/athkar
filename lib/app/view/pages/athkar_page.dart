@@ -1,5 +1,5 @@
-import 'package:athkar/app/data/database/athkar_database.dart';
-import 'package:athkar/app/data/models/athkar_model.dart';
+import 'package:athkar/app/model/database/athkar_database.dart';
+import 'package:athkar/app/model/models/athkar_model.dart';
 import 'package:athkar/app/view/widgets/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

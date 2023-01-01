@@ -2,7 +2,7 @@ import 'package:athkar/app/view/widgets/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../data/database/tasbih_database.dart';
+import '../../model/database/tasbih_database.dart';
 import '../widgets/tasbih_bottom_sheet.dart';
 
 class MyCounterPage extends StatefulWidget {

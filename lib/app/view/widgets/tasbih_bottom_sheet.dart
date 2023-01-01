@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../data/database/tasbih_database.dart';
+import '../../model/database/tasbih_database.dart';
 
 class TasbihBottomSheet extends StatefulWidget {
   const TasbihBottomSheet({Key? key}) : super(key: key);
@@ -57,9 +57,10 @@ Future showTasbihDialog(BuildContext context) {
                 ),
                 const SizedBox(height: 10),
                 ElevatedButton(
-                  onPressed: (){
+                  onPressed: () {
                     Navigator.of(context).pop();
-                    Provider.of<TasbihDatabase>(context,listen: false).addTasbih(
+                    Provider.of<TasbihDatabase>(context, listen: false)
+                        .addTasbih(
                       tasbihController.text,
                       int.parse(numberController.text),
                     );
@@ -99,9 +100,10 @@ class _TasbihBottomSheetState extends State<TasbihBottomSheet> {
                 (e) => Row(
                   children: [
                     IconButton(
-                      onPressed: (){
+                      onPressed: () {
                         setState(() {
-                          Provider.of<TasbihDatabase>(context,listen: false).deleteTasbih(e.name);
+                          Provider.of<TasbihDatabase>(context, listen: false)
+                              .deleteTasbih(e.name);
                         });
                       },
                       icon: const Icon(Icons.close),

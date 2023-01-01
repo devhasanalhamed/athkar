@@ -1,5 +1,5 @@
-import 'package:athkar/app/data/database/athkar_database.dart';
-import 'package:athkar/app/data/database/tasbih_database.dart';
+import 'package:athkar/app/model/database/athkar_database.dart';
+import 'package:athkar/app/model/database/tasbih_database.dart';
 import 'package:athkar/app/view/pages/athkar_page.dart';
 import 'package:athkar/core/theme/controller/theme_controller.dart';
 import 'package:athkar/core/theme/data/dark_theme_data.dart';

@@ -16,7 +16,7 @@ class MyAthkar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
+      onTap: () {
         Navigator.pushNamed(context, AthkarPage.routeName);
       },
       child: Container(
@@ -36,6 +36,8 @@ class MyAthkar extends StatelessWidget {
             Text(
               title,
               style: Theme.of(context).textTheme.titleSmall,
+              softWrap: false,
+              overflow: TextOverflow.fade,
             ),
           ],
         ),
