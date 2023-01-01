@@ -2,6 +2,7 @@ import 'package:athkar/app/view/widgets/appbar.dart';
 import 'package:athkar/app/view/widgets/counter.dart';
 import 'package:athkar/app/view/widgets/information.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_islamic_icons/flutter_islamic_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -49,43 +50,107 @@ class _MyHomePageState extends State<MyHomePage> {
             SizedBox(
               height: screenHeight * 0.02,
             ),
-            Row(
-              children: [
-                MyAthkar(
-                  title: 'أذكار الصباح',
-                  icon: Icons.sunny,
-                  height: screenHeight * 0.20,
+            SizedBox(
+              height: screenHeight * 0.44,
+              child: GridView(
+                scrollDirection: Axis.horizontal,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 10,
+                  childAspectRatio: 1,
+                  mainAxisSpacing: 10,
+                  mainAxisExtent: ((MediaQuery.of(context).size.width / 2) -
+                      screenHeight * 0.03),
                 ),
-                const SizedBox(
-                  width: 10,
-                ),
-                MyAthkar(
-                  title: 'أذكار المساء',
-                  icon: Icons.nightlight_round,
-                  height: screenHeight * 0.20,
-                ),
-              ],
+                children: [
+                  MyAthkar(
+                    title: 'أذكار الصباح',
+                    icon: Icons.sunny,
+                    height: screenHeight * 0.20,
+                  ),
+                  MyAthkar(
+                    title: 'أذكار المساء',
+                    icon: Icons.nightlight_round,
+                    height: screenHeight * 0.20,
+                  ),
+                  MyAthkar(
+                    title: 'الذكر بعد الصلاة',
+                    icon: FlutterIslamicIcons.prayingPerson,
+                    height: screenHeight * 0.20,
+                  ),
+                  MyAthkar(
+                    title: 'أذكار النوم',
+                    icon: Icons.bed,
+                    height: screenHeight * 0.20,
+                  ),
+                  MyAthkar(
+                    title: 'أذكار',
+                    icon: Icons.sunny,
+                    height: screenHeight * 0.20,
+                  ),
+                  MyAthkar(
+                    title: 'أذكار',
+                    icon: Icons.sunny,
+                    height: screenHeight * 0.20,
+                  ),
+                  MyAthkar(
+                    title: 'أذكار',
+                    icon: Icons.sunny,
+                    height: screenHeight * 0.20,
+                  ),
+                  MyAthkar(
+                    title: 'أذكار',
+                    icon: Icons.sunny,
+                    height: screenHeight * 0.20,
+                  ),
+                ],
+              ),
             ),
             SizedBox(
-              height: screenHeight * 0.02,
-            ),
-            Row(
-              children: [
-                MyAthkar(
-                  title: 'أذكار الصباح',
-                  icon: Icons.sunny,
-                  height: screenHeight * 0.20,
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                MyAthkar(
-                  title: 'أذكار المساء',
-                  icon: Icons.nightlight_round,
-                  height: screenHeight * 0.20,
-                ),
-              ],
-            ),
+              height: screenHeight * 0.03,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Container(
+                    height: 10,
+                    width: 10,
+                    decoration: const BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(50),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 2,
+                  ),
+                  Container(
+                    height: 10,
+                    width: 10,
+                    decoration: const BoxDecoration(
+                      color: Colors.blue,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(50),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 2,
+                  ),
+                  Container(
+                    height: 10,
+                    width: 10,
+                    decoration: const BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(50),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),
